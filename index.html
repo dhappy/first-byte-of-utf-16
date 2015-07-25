@@ -2,6 +2,8 @@
 <html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
     <title>First Byte of UTF-16 Character Encoding</title>
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    
     <script src='fb16.js'/>
   </head>
   <body>
@@ -11,22 +13,17 @@
       </blockquote>
     </a>
 
-    <p>That's <code>00000000</code>–<code>0010FFFF</code>. So, the name is something of a misnomer since the data will be stored in the last byte. ☻</p>
+    <p>That's <code>00000000</code>–<code>0010FFFF</code>. So, the name is something of a misnomer since the data will be stored in the last byte.</p>
     
     <ol>
       <li><code>A1B2C3</code></li>
       <li><code>00A100B200C3</code> (UTF-16)</li>
-      <li></li>
+      <li id='base64'></li>
+      <li id='UTF16LE'></li>
     </ol>
 
     <p>
       Base64:
-      <script>
-        var base64 = "VABlAHMAdABpAG4AZwA"
-        var binaryStr = base64decode(base64)
-        var result = decodeUTF16LE(binaryStr)
-        print base64
-      </script>
     </p>
   </body>
 </html>
