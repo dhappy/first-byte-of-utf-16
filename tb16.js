@@ -11,23 +11,17 @@ function decodeUTF16LE( binaryStr ) {
 }
 
 function encodeTB16( data ) {
-    console.log( data )
-    return data.slice(0, 8)
-    return String.fromCharCode(65)
-    var cp = [];
-    for( var i = 0; i < binaryStr.length; i += 8) {
-        cp.push(
-            ( binaryStr.charCodeAt(i+1) << 8 )
-        )
+    var out = ''
+    for(var i = 0; i < data.length; i += 8) {
+        out += String.fromCharCode(parseInt(data.slice(i, i + 8), 2))
     }
 
-    return String.fromCharCode.apply( String, cp )
+    return out
 }
 
 var base64decode = atob; //In chrome and firefox, atob is a native method available for base64 decoding
 
 $(function() {
-    console.log('hi')
     var base64 = "VABlAHMAdABpAG4AZwA"
     var binary = atob(base64)
     var binary = ''
@@ -39,4 +33,10 @@ $(function() {
     $('#base64').text(base64)
     $('#UTF16LE').text(UTF16LE)
     $('#tb16').text(tb16)
+
+    var $ol = $('<ol/>')
+    $('body').append($ul)
+    for(var i = 0; i < parseInt('FFFF', 16), i++) {
+        $ol.append($('<li/>').text(i.toString(16) + ': ' + String.fromCharCode(i)))
+    }
 })
