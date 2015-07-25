@@ -35,8 +35,8 @@ $(function() {
     $('#tb16').text(tb16)
 
     var $ol = $('<ol/>')
-    $('body').append($ul)
-    for(var i = 0; i < parseInt('FFFF', 16), i++) {
-        $ol.append($('<li/>').text(i.toString(16) + ': ' + String.fromCharCode(i)))
-    }
+    $('body').append($ol)
+    //for(var i = 0; i < parseInt('FFFF', 16), i++) {
+        //$ol.append($('<li/>').text(i.toString(16) + ': ' + String.fromCharCode(i)))
+    //}
 })
