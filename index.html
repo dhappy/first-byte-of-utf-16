@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns='http://www.w3.org/1999/xhtml'>
   <head>
     <title>First Byte of UTF-16 Character Encoding</title>
     <script src='fb16.js'/>
@@ -18,5 +18,15 @@
       <li><code>00A100B200C3</code> (UTF-16)</li>
       <li></li>
     </ol>
+
+    <p>
+      Base64:
+      <script>
+        var base64 = "VABlAHMAdABpAG4AZwA"
+        var binaryStr = base64decode(base64)
+        var result = decodeUTF16LE(binaryStr)
+        print base64
+      </script>
+    </p>
   </body>
 </html>
