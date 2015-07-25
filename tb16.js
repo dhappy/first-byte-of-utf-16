@@ -30,13 +30,14 @@ $(function() {
     }
     var UTF16LE = decodeUTF16LE(binary)
     var tb16 = encodeTB16(binary)
+    $('#binary').text(binary)
     $('#base64').text(base64)
     $('#UTF16LE').text(UTF16LE)
     $('#tb16').text(tb16)
 
     var $ol = $('<ol/>')
     $('body').append($ol)
-    //for(var i = 0; i < parseInt('FFFF', 16), i++) {
-        //$ol.append($('<li/>').text(i.toString(16) + ': ' + String.fromCharCode(i)))
-    //}
+    for(var i = 0; i < parseInt('FFFF', 16); i++) {
+        $ol.append($('<li/>').text(i.toString(16) + ': ' + String.fromCharCode(i)))
+    }
 })
