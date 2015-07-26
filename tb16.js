@@ -22,18 +22,21 @@ function encodeTB16( data ) {
 var base64decode = atob; //In chrome and firefox, atob is a native method available for base64 decoding
 
 $(function() {
-    var base64 = "VABlAHMAdABpAG4AZwA"
-    var binary = atob(base64)
     var binary = ''
     for(var i = 1; i <= 128; i++) {
         binary += Math.random() >= .5 ? '1' : '0'
     }
-    var UTF16LE = decodeUTF16LE(binary)
-    var tb16 = encodeTB16(binary)
-    $('#binary').text(binary)
-    $('#base64').text(base64)
-    $('#UTF16LE').text(UTF16LE)
-    $('#tb16').text(tb16)
+    var vars = {}
+    vars.merge({
+        hex: parseInt(binary, 2).toString(16),
+        base64: "VABlAHMAdABpAG4AZwA",
+        binary: atob(vars['base64']),
+        UTF16LE: decodeUTF16LE(binary),
+        tb16: encodeTB16(binary)
+    })
+    for(type in vars) {
+        $('#' + type).text(vars[type])
+    }
 
     var $ol = $('<ol/>')
     $('body').append($ol)
