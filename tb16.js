@@ -6,46 +6,42 @@ String.prototype.each_slice = function(size, callback) {
     return out
 }
 
-function encodeTB16( data ) {
-    var out = ''
-    for(var i = 0; i < data.length; i += 8) {
-        out += String.fromCharCode(parseInt(data.slice(i, i + 7), 2))
-    }
-
-    return out
+function encodeTB16(data) {
+    return data.each_slice(2, function(hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+    })
+        .join()
 }
 
-function encodeUTF16( data ) {
-    var out = ''
-    for(var i = 0; i < data.length; i += 16) {
-        out += String.fromCharCode(parseInt(data.slice(i, i + 15), 2))
-    }
-
-    return out
+function encodeUTF16(data) {
+    return data.each_slice(4, function(hex) {
+        return String.fromCharCode(parseInt(hex, 16))
+    })
+        .join()
 }
-
-var base64decode = atob; //In chrome and firefox, atob is a native method available for base64 decoding
 
 $(function() {
-    var binary = ''
-    for(var i = 1; i <= 128 * 128; i++) {
-        binary += Math.random() >= .5 ? '1' : '0'
+    var hex = ''
+    var count = 128 * 128
+    for(var i = 1; i <= count; i++) {
+        hex += [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'][Math.floor(Math.random()*16)]
     }
     var vars = {
-        binary: (function() {
-            return binary.each_slice(1, function(bit) {
+        count: count,
+        hex: (function() {
+            return hex.each_slice(1, function(bit) {
                 return bit
             }).join(String.fromCharCode(parseInt('AD', 16))) // soft hyphens
         })(),
-        hex: (function() {
-            return binary.each_slice(64, function(bits) {
-                return parseInt(bits, 2).toString(16)
-            }).join(String.fromCharCode(parseInt('AD', 16))) // soft hyphens
-        })(),
-        tb16: encodeTB16(binary),
-        utf16: encodeUTF16(binary)
+        tb16: encodeTB16(hex),
+        utf16: encodeUTF16(hex)
     }
     for(type in vars) {
-        $('#' + type).text('(ℓ:' + vars[type].length + '): ' + vars[type])
+        var length = vars[type].length
+        var val = vars[type]
+        if(val.split !== undefined) {
+            val = val.split(/./).join(String.fromCharCode(parseInt('AD', 16))) // soft hyphens
+        }
+        $('#' + type).text('(ℓ:' + length + '): ' + val)
     }
 })
