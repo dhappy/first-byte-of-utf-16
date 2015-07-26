@@ -28,11 +28,7 @@ $(function() {
     }
     var vars = {
         count: count,
-        hex: (function() {
-            return hex.each_slice(1, function(bit) {
-                return bit
-            }).join(String.fromCharCode(parseInt('AD', 16))) // soft hyphens
-        })(),
+        hex: hex,
         tb16: encodeTB16(hex),
         utf16: encodeUTF16(hex)
     }
@@ -40,7 +36,9 @@ $(function() {
         var length = vars[type].length
         var val = vars[type]
         if(val.split !== undefined) {
-            val = val.split(/./).join(String.fromCharCode(parseInt('AD', 16))) // soft hyphens
+            val = val.each_slice(1, function(letter) {
+                return letter
+            }).join(String.fromCharCode(parseInt('AD', 16))) // soft hyphens
         }
         $('#' + type).text('(ℓ:' + length + '): ' + val)
     }
